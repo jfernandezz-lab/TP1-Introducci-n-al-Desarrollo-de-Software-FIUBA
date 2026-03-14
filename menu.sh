@@ -6,7 +6,7 @@
 LAB_DIR="$HOME/EPNro1"
 SCRIPT_CONSOLIDAR="./consolidar.sh"
 
-# Separar el texto del menú en una función hace que el "while" sea mucho más fácil de leer.
+# Separar el texto del menú en una función.
 
 mostrar_menu() {
     echo ""
@@ -25,7 +25,7 @@ mostrar_menu() {
 
 if [ "$1" == "-d" ]; then
 
-    # parámetro optativo -d. Si el usuario corre el script con el parámetro optativo -d se borrará todo el entorno creado en la carpeta EPNro1 y se matarán los procesos creados en background.
+    # parámetro optativo -d. Si el usuario corre el script con el parámetro optativo -d se borrará todo el entorno creado en la carpeta EPNro1.
     # En teoria esto deberia funcionar para el borrado con el parametro -d.
 
     echo "Empezando a borrar el entorno..."
