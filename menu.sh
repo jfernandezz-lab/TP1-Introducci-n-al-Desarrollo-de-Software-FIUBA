@@ -3,8 +3,9 @@
 # Definimos las rutas acá arriba. Si mañana el profe pide cambiar el nombre de la carpeta, lo cambiamos en un solo lugar.
 # Para el que haga el punto 2, dejo el script consolidar.sh dentro de una variable para laburar de manera más comoda.
 
-LAB_DIR="$HOME/EPNro1"
+export LAB_DIR="$HOME/EPNro1"
 SCRIPT_CONSOLIDAR="./consolidar.sh"
+export FILENAME=notas
 
 # Separar el texto del menú en una función.
 
@@ -55,28 +56,40 @@ while true; do
             ;;
 
         2)
-            echo "Lanzando consolidación en segundo plano..."
-            # Ejecutar el script, punto 2
-            echo "hola2"
+            echo "Lanzando consolidación en segundo plano..." 
+            /$LAB_DIR/consolidar.sh &
             ;;
 
         3)
-            # Listar alumnos padron, punto 3.
-            echo "hola3"
+	    if [ -f "/$LAB_DIR/salida/$FILENAME.txt" ]; then
+                sort -n -k1 "/$LAB_DIR/salida/$FILENAME.txt"
+            else
+                echo "No existe el archivo $FILENAME.txt en la carpeta en la carpeta de salida"    
+            fi
             ;;
 
         4)
-            # Top 10 notas, punto 4
-            echo "hola4"
-            ;;
+            if [ -f /$LAB_DIR/salida/${FILENAME:-alumnos}.txt ];
+            then
+            	sort -k 5 -n -r /$LAB_DIR/salida/${FILENAME:-alumnos}.txt | head -n 10
+            else
+            	echo "El archivo no existe"
+            fi
+	    ;;
 
         5)
-            # Buscar por padron, punto 5.
-            echo "hola5"
-            ;;
+            if [ -f /$LAB_DIR/salida/${FILENAME:-alumnos}.txt ];
+            then
+            	read -p "escribir numero de padron:" padron
+            	grep "$padron" /$LAB_DIR/salida/${FILENAME:-alumnos}.txt
+            else
+            	echo "El archivo no existe"
+            fi
+	    ;;
 
         6)
             echo "Saliendo del sistema..."
+	    pkill -f consolidar.sh
             break
             ;;
 
