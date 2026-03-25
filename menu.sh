@@ -16,9 +16,9 @@ mostrar_menu() {
     echo "=========================================="
     echo "1) Instalación (Crear carpetas y mover script)"
     echo "2) Consolidación (Ejecutar en background)"
-    echo "3) Listar alumnos ordenados por padrón"
-    echo "4) Mostrar las 10 notas más altas"
-    echo "5) Buscar alumno por padrón"
+    echo "3) Ejecutar un comando (Ingreso libre)"
+    echo "4) Ver árbol de directorios"
+    echo "5) Listar archivos comprimidos"
     echo "6) Salir"
     echo "=========================================="
     echo -n "Seleccione una opción: " # El -n es solo un salto de linea como el \n.
@@ -30,6 +30,7 @@ if [ "$1" == "-d" ]; then
     # En teoria esto deberia funcionar para el borrado con el parametro -d.
 
     echo "Empezando a borrar el entorno..."
+    pkill -f consolidar.sh
     rm -rf "$LAB_DIR"
     echo "Borrado concluido"
     exit 0
