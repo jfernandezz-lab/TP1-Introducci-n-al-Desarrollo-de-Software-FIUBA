@@ -16,12 +16,12 @@ mostrar_menu() {
     echo "=========================================="
     echo "1) Instalación (Crear carpetas y mover script)"
     echo "2) Consolidación (Ejecutar en background)"
-    echo "3) Ejecutar un comando (Ingreso libre)"
-    echo "4) Ver árbol de directorios"
-    echo "5) Listar archivos comprimidos"
+    echo "3) Ordenar por numero de padron"
+    echo "4) Mostrar las 10 notas mas altas"
+    echo "5) Mostrar usuario por numero de padron"
     echo "6) Salir"
     echo "=========================================="
-    echo -n "Seleccione una opción: " # El -n es solo un salto de linea como el \n.
+    echo -n "Seleccione una opción: " # El -n evita un salto de linea.
 }
 
 if [ "$1" == "-d" ]; then
@@ -58,31 +58,31 @@ while true; do
 
         2)
             echo "Lanzando consolidación en segundo plano..." 
-            /$LAB_DIR/consolidar.sh &
+            $LAB_DIR/consolidar.sh &
             ;;
 
         3)
-	    if [ -f "/$LAB_DIR/salida/$FILENAME.txt" ]; then
-                sort -n -k1 "/$LAB_DIR/salida/$FILENAME.txt"
+	    if [ -f "$LAB_DIR/salida/$FILENAME.txt" ]; then
+                sort -n -k1 "$LAB_DIR/salida/$FILENAME.txt"
             else
                 echo "No existe el archivo $FILENAME.txt en la carpeta en la carpeta de salida"    
             fi
             ;;
 
         4)
-            if [ -f /$LAB_DIR/salida/${FILENAME:-alumnos}.txt ];
+            if [ -f $LAB_DIR/salida/${FILENAME:-alumnos}.txt ];
             then
-            	sort -k 5 -n -r /$LAB_DIR/salida/${FILENAME:-alumnos}.txt | head -n 10
+            	sort -k 5 -n -r $LAB_DIR/salida/${FILENAME:-alumnos}.txt | head -n 10
             else
             	echo "El archivo no existe"
             fi
 	    ;;
 
         5)
-            if [ -f /$LAB_DIR/salida/${FILENAME:-alumnos}.txt ];
+            if [ -f $LAB_DIR/salida/${FILENAME:-alumnos}.txt ];
             then
             	read -p "escribir numero de padron:" padron
-            	grep "$padron" /$LAB_DIR/salida/${FILENAME:-alumnos}.txt
+            	grep "$padron" $LAB_DIR/salida/${FILENAME:-alumnos}.txt
             else
             	echo "El archivo no existe"
             fi
